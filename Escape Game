@@ -1,0 +1,291 @@
+"""
+Author: Jacquiline Mwenda
+"""
+"""
+DocString
+This games simulates a situaton where the user is caught in a house that is about to be burglarised.
+With the user's quick wits and smart moves will they be able to find a place to stay safe, find a way to go to
+their neighbour's place to call for help or get caught!!
+"""
+
+import random
+import time
+
+#Introduction to the game with the user's name
+username = input(prompt = "What would you like your Username to be?\n")
+
+def intro():
+    print(f"\n\n\t\t\t\t\t\t !!!WELCOME {username.upper()}!!!\n")
+    print("\n\n The purpose of this game is for you to successfully escape from an intruder in your house.. Weelll, try to..\n",
+         "\t\t\t You will be in your bedroom when suddenly you hear a noise..\n",
+         "\t\t\t\t\t\t WHAT DO YOU DO?\n\n")
+    print("*\t*"*50)
+intro()
+
+#to allow the user to play again
+def playagain():
+    again = input(prompt = "Would you like to play the game again? [Y/N] \n")
+    again = again.lower()
+    if again == "y":
+        choices()
+    elif again == "n":
+        input("<Press Enter to exit")
+    else:
+        print("That was an Invalid entry!\n")
+        print("Please input Y for Yes and N for No")
+        playagain()
+        
+
+#if the user wins, this is what will be displayed
+def win():
+    time.sleep(2)
+    print("\n\n", "-_-_-_-_-_"*10)
+    print("""
+██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗ ██████╗ ███╗   ██╗██╗██╗██╗
+╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██╔═══██╗████╗  ██║██║██║██║
+ ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║   ██║██╔██╗ ██║██║██║██║
+  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║   ██║██║╚██╗██║╚═╝╚═╝╚═╝
+   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝╚██████╔╝██║ ╚████║██╗██╗██╗
+   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝╚═╝
+                                                                     
+""")
+    print(f"\n Congratulations {username.upper()} on escaping the inturder!!")
+    print("\n", "-_-_-_-_-_"*10)
+    input("<Press Enter to continue.>")
+    playagain()
+
+#if the user fails to escape, this is what will be displayed
+def fail():
+    print("\n\n", "-_-_-_-_-_"*10)
+    print("\n Unfortunately you got caught by the intruder. \n\n <<GAME OVER>>\n")
+    print("-_-_-_-_-_"*10)
+    input("<Press Enter to continue.> \n")
+    playagain()
+
+#if the user chooses A
+def answer1():
+    print("The intruder walks into the room and you watch as he walks around the bed.\n",
+         "You hold your breath as he walks right beside you. He walks away.","You start to exhale when suddenly..")
+    input("<Press Enter to continue>")
+    print("\n *"*6, "\n Someone grabs your foot.\n You should have watched Taken the movie.. (jus saying..) \n",
+         "Liam Neeson knew that would happen.")
+    fail()
+
+#if the user chooses B
+def answer2():
+    #let's determine if the player can fit in the ottoman
+    
+    heigh = input(prompt = "\nApproximately how tall would you say you are? (in feet) \n")
+    
+    # we then tranform this into a float value with one decimal place
+    
+    height = float(heigh)
+    
+    if height >= 7.1 or height <= 4.0:
+        print("Please pick a different height that is between 4 and 7 feet.")
+        input("<Press Enter to continue>")
+        answer2()
+    elif height >= 7.1:
+        print("\n\n Are you a giant?\n", "Did you really decide to hide in an ottoman???")
+        fail()
+    elif height >= 5.9:
+        print("\n\n Wow.. That's tall!! Did you really think you would fit in an ottoman?",
+              "\nEven if you are a contortionist!")
+        fail()
+    elif height >= 4.0 and height < 5.9:
+        toy = input(prompt = "What was your favourite childhood toy?  \n")
+        print("\n You get into the ottoman and lay very still. You can hear him walking around the room.", 
+             "You feel some pressure on your side and adjust to make yourself a bit more comfortable.",
+             f"\n A whimper escapes your lips and the intruder grabs you from the ottoman. You look down to see your {toy} betrayed you")
+        fail()
+
+#if the user chooses C
+def answer3():
+    weapons_list = ['A late 18th century sword',
+                   'an aluminum baseball bat',
+                   'a plastic bat',
+                   'a gun']
+    #randomly pick a weapon for the user
+    weapon = random.choice(weapons_list)
+    
+    fight = input(prompt = "Have you ever fought before? [Y/N] \n")
+    fight = fight.lower()
+    
+    if fight == "y":
+        print(f"\n Your weapon will be {weapon}.\n\n")
+        input("<Press enter to continue>\n")
+        if 'late' in weapon:
+            print("That is a pretty old and fragile weapon that wasn't made by the best swordsman.\n",
+                 "It shatters as you try to pull it out of the sheath!!")
+            fail()
+        elif 'baseball' in weapon:
+            print("This is a sturdy bat and you are able to take a couple of swings at the inturder.")
+            input("<Press enter to continue>\n")
+            print("You hit him in the knee and head for the closet")
+            answer4()
+        elif 'plastic' in weapon:
+            print("This is similar to hitting a bear with an empty water bottle. Just irritates him!")
+            fail()
+        else:
+            print("Your parents are pacifists and this is just a very realistic looking water gun.\n",
+                 "Not very helpful unless the intruder is thirsty:) \n")
+            fail()
+    elif fight == "n":
+        print("\n\t\t You can't just stand there and hope to turn invisible. \n")
+        fail()
+    else:
+        print("That is an invalid entry.\n")
+        input("<Press Enter to continue.>  \n")
+        answer3()
+
+#to move the grate that leads to the outside
+def grate():
+    print("There is a metal grate blocking you from the outside. \n")
+    
+    move = input(prompt = "Do you: \n A. Move it. \n B. Leave it and go back. \n")
+    move = move.lower()
+    
+    if move == "a":
+        print("\n You move the grate ever so quietly and wind up in the backyard. \n")
+        run = input(prompt = "Do you make a run for the neighbour's house? [Y/N] \n")
+        run = run.lower()
+        
+        if run == "y":
+            print("You run as fast as you can to your neighbour's house.\n",  
+                  "You are able to call the police and your parents. \n")
+            win()
+        elif run == "n":
+            print("You really just want to chill in the backyard with an intruder in your house?? \n\n", 
+                  "...I feel like a disappointed parent... :( \n")
+            fail()
+        else:
+            print("Invalid entry!")
+            input("<Press Enter to continue>")
+            playagain()
+            
+    elif move == "b":
+        door = input(prompt = "Do you remember closing the secret hatch door? [Y/N] \n")
+        door = door.lower()
+        
+        if door == "y":
+            print("Going back might be more risky than just removing the grate and making a run for it. \n")
+            
+            remove = input(prompt = "Do you just want to remove the grate and run?! [Y/N] \n")
+            remove = remove.lower()
+            
+            if remove == "y":
+                print("Good choice!")
+                print("<Press Enter to proceed>\n")
+                win()
+            elif remove == "n":
+                print("All the moving around in the walls attracted the attention of the intruder. \n",
+                     "Just as you turn to take your leave, you notice someone staring at you from within the darkness. \n")
+                fail()
+            else:
+                print("That was an invalid entry. \n")
+                input("<Press Enter to continue>")
+                playagain()
+                
+        elif door == "n":
+            print("All the moving around in the walls attracted the attention of the intruder. \n",
+                 "Just as you turn to take your leave, you notice someone staring at you from within the darkness. \n")
+            fail()
+        else:
+            print("Invalid entry!")
+            input("<Press Enter to continue>")
+            playagain()
+    
+#if the user chooses D
+def answer4():
+    print("You run into the closet and remain as silent as possible.",
+         "You push yourself into the darkest coner of the closet and hear a creak.\n You push it a bit wider and you see it...", "\n *"*4,
+         "\n A SECRET PASSAGE!!!!", "\n *"*4, "\n You scurry through and see a dim light to your right and it's ",
+         "pitch dark to your left.")
+    side = input(prompt = "Which side will you go? [left/right] \n")
+    side = side.lower()
+    
+    if side == 'right' or side == "r":
+        print("You go through the tiny hallway and end up in the wall of your parent's room. \n")
+        input("<Press Enter to continue> \n\n")
+        
+        get = input(prompt = "Do you get out of your hiding spot and make a run for it? [Y/N] \n")
+        get = get.lower()
+        
+        if get == "y":
+            print("\nAs you open the hatch to run, you hear something wobbling.\n",
+                "Your mother's vase crushes on the hardwood floor and you hear loud hurried footsteps heading in your direction. \n",
+                  "\n",
+                 "**You freeze** \n")
+            fail()
+        elif get =="n":
+            print("\n\n Very smart! Don't make a sound. Help is probably on its way..\n")
+            win()
+        else:
+            print("That was an invalid entry!")
+            input("<Press Enter to continue> \n")
+            playagain()
+            
+    elif side == 'left' or side == "l":
+        spiders = input(prompt = "Are you afraid of spiders? [Y/N] \n")
+        spiders = spiders.lower()
+        
+        if spiders == "y":
+            print("As you slowly go down the hall, you feel spiders walking all over you. \n",
+                 "You let out a shriek never heard before and immediately realise you should have faced your fears a while ago.")
+            fail()
+
+        elif spiders == "n":
+            print("Yea.. Me neither.. There is definitely nothing crawling on me right now.. \n",
+                 "And it's pretty dark in here.... \n")
+            input("<Press Enter to continue> \n")
+            
+            dark = input(prompt = "Are you afraid of the dark? [Y/N] \n")
+            dark = dark.lower()
+            
+            if dark == "y":
+                print("SUCK IT UP.. THERE IS AN INTRUDER IN YOUR HOUSE!!!!!")
+                grate()
+            elif dark == "n":
+                print("Okay toughguy..")
+                grate()
+            else:
+                print("Invalid entry! \n")
+                input("<Press Enter to continue> \n")
+                playagain()
+        else:
+            print("That is an invalid entry")
+            input("<Press Enter to continue> \n")
+            playagain()
+    else:
+        print("Invalid entry")
+        input("<Press Enter to continue> \n")
+        playagain()
+        
+    
+    
+#choosing what to do
+def choices():
+    print("\n\nYou hear the floor boards creaking in another room. It dawns on you that you are supposed to be home alone.",
+         "\n\nWhat do you do?\n\n", "Do you:\n", "A. Hide under the bed.\n",
+          "B. Hide in the ottoman at the edge of the bed.\n", "C. Fight the intruder.\n",
+         "D. Hide in the closet\n")
+    answer = input(prompt = "Enter A, B, C or D\n")
+    answer = answer.lower()
+    
+    if answer == "a":
+        print("\nYou decided to Hide under the bed")
+        answer1()
+    elif answer == "b":
+        print("\nYou decided to Hide in the ottoman")
+        answer2()
+    elif answer == "c":
+        print("\nYou decided to Fight the intruder.. \n Very Brave of you")
+        answer3()
+    elif answer == "d":
+        print("\nYou decided to Hide in the closet")
+        answer4()
+    else:
+        print("\nThat was an invalid entry. Please choose A, B, C or D!")
+        input("\n<Press Enter to continue> \n")
+        playagain()
+choices()
